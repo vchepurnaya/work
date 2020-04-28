@@ -87,6 +87,22 @@ for (var i=0; i<arrayOfObjects.length; i++) {
   }
 }
 
+// 9)
+var arrayOfObjects2 = [
+  { title: 'artist'},
+  { title: 'writer'},
+  { title: 'waiter'},
+  { title: 'actor'}
+];
+
+console.log('Результат вывода 9 задания: ');
+
+for (var i=0; i<arrayOfObjects2.length; i++) {
+  arrayOfObjects2[i].titleU = arrayOfObjects2[i].title.toUpperCase();
+}
+
+console.log(arrayOfObjects2);
+
 // 10)
 var array5 = ['veg','products','meat','fruits','dairy'];
 var newArray5 = [];
@@ -109,19 +125,21 @@ for (var i=0; i<array6.length; i++) {
   }
 }
 
-/*// 9)
-var arrayOfObjects2 = [
-  { title: 'artist'},
-  { title: 'writer'},
-  { title: 'waiter'},
-  { title: 'actor'}
-];
-var newArrayOfObjects2 = [];
-for (var i=0; i<arrayOfObjects2.length; i++) {
-  for (var j=0; j<arrayOfObjects2[i].length; j++) {
-    var newArrayOfObjects2[] += arrayOfObjects2[i][j].toUpperCase();
-  }
+// 12)
+/*function calcSqrtOfNum(a) {
+
+  return  a**2;
 }
-console.log(newArrayOfObjects2);*/
+
+function myFunc(func) {
+  var arr = [];
+  var sum = arr + func();
+
+  return sum;
+}
+var sum = myFunc(calcSqrtOfNum);
+console.log(sum);*/
+
+
 
 
