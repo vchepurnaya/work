@@ -50,3 +50,78 @@ console.log('Результат вывода 6 задания: ');
 for (var i=0; i<newArray3.length; i++) {
   console.log(i + ' - ' + newArray3[i]);
 }
+
+// 7)
+var array4 = ['red', true, false, 'green', null, 'orange', 'purple', 1, undefined, 2, 14];
+
+console.log('Результат вывода 7 задания: ');
+
+for (var i = 0; i < array4.length; i++) {
+
+  if (typeof array4[i]==="number") {
+    console.log('This is a number');
+  }
+
+  else if (typeof array4[i]==="string") {
+    console.log('This is a string');
+  }
+
+  else {
+    console.log('This is some type');
+  }
+}
+
+// 8)
+var arrayOfObjects = [
+  { id: 1, message: 'hello', isHidden: true },
+  { id: 2, message: 'bye', isHidden: false },
+  { id: 3, message: 'thank you', isHidden: true },
+  { id: 4, message: 'good day', isHidden: false },
+  { id: 5, message: 'great', isHidden: true }
+];
+console.log('Результат вывода 8 задания: ');
+for (var i=0; i<arrayOfObjects.length; i++) {
+
+  if (arrayOfObjects[i].isHidden !== true) {
+    console.log(arrayOfObjects[i].message);
+  }
+}
+
+// 10)
+var array5 = ['veg','products','meat','fruits','dairy'];
+var newArray5 = [];
+for (var i=0; i<array5.length; i++) {
+  if (array5[i].indexOf('u') > -1) {
+    newArray5.push(array5[i]);
+  }
+}
+console.log('Результат вывода 10 задания: ' + newArray5);
+
+// 11)
+var array6 = [1,10,15,20,38,41,45];
+console.log('Результат вывода 11 задания: ');
+for (var i=0; i<array6.length; i++) {
+  if (array6[i]%2===0){
+    console.log(array6[i] + ' - ' + 'even');
+  }
+  else {
+    console.log(array6[i] + ' - ' + 'add');
+  }
+}
+
+/*// 9)
+var arrayOfObjects2 = [
+  { title: 'artist'},
+  { title: 'writer'},
+  { title: 'waiter'},
+  { title: 'actor'}
+];
+var newArrayOfObjects2 = [];
+for (var i=0; i<arrayOfObjects2.length; i++) {
+  for (var j=0; j<arrayOfObjects2[i].length; j++) {
+    var newArrayOfObjects2[] += arrayOfObjects2[i][j].toUpperCase();
+  }
+}
+console.log(newArrayOfObjects2);*/
+
+
