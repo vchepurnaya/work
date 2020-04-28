@@ -126,20 +126,18 @@ for (var i=0; i<array6.length; i++) {
 }
 
 // 12)
-/*function calcSqrtOfNum(a) {
+console.log('Результат вывода 12 задания: ');
+
+function calcSqrtOfNum(a) {
 
   return  a**2;
 }
 
-function myFunc(func) {
+function putResIntoArr(calcSqrtOfNum) {
   var arr = [];
-  var sum = arr + func();
+  var sqrtNum = calcSqrtOfNum(5);
+  arr.push(sqrtNum);
 
-  return sum;
+  return arr;
 }
-var sum = myFunc(calcSqrtOfNum);
-console.log(sum);*/
-
-
-
-
+console.log(putResIntoArr(calcSqrtOfNum));
