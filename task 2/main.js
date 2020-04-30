@@ -14,41 +14,35 @@ array.splice(4,1);
 console.log('Результат вывода 3 задания: ' + array);
 
 // 4)
-array.sort();
-for (var i=0; i<array.length-1; i++) {
+var newArray = [];
+for (var i=0; i<array.length; i++) {
 
- if (array[i]===array[i+1]) {
-   delete array[i];
+  if (newArray.indexOf(array[i]) ) {
+    newArray.push(array[i]);
   }
+  else if (newArray.indexOf(array[i]) === array[i].indexOf(newArray[i])) {
+    delete array[i];
+  }
+
 }
-console.log('Результат вывода 4 задания: ' + array);
+console.log('Результат вывода 4 задания: ' + newArray);
 
 // 5)
 var array2 = ['apple', 8, 14, 5, 'orange', 20, 'grape', 1, 'orange'];
-var newArray2 = [];
+console.log('Результат вывода 5 задания: ');
 for (var i=0; i<array2.length; i++){
   if (array2[i] > 7) {
-    newArray2.push(array2[i]);
+    console.log(i + ' - ' + array2[i]);
   }
-}
-console.log('Результат вывода 5 задания: ');
-
-for (var i=0; i<newArray2.length; i++) {
-  console.log(i + ' - ' + newArray2[i]);
 }
 
 // 6)
 var array3 = ['red', 'green', 'orange', 'purple', 1, 2, 14];
-var newArray3 = [];
+console.log('Результат вывода 6 задания: ');
 for (var i=0; i<array3.length; i++){
   if (array3[i].length > 5) {
-    newArray3.push(array3[i]);
+    console.log(i + ' - ' + array3[i]);
   }
-}
-console.log('Результат вывода 6 задания: ');
-
-for (var i=0; i<newArray3.length; i++) {
-  console.log(i + ' - ' + newArray3[i]);
 }
 
 // 7)
@@ -96,12 +90,12 @@ var arrayOfObjects2 = [
 ];
 
 console.log('Результат вывода 9 задания: ');
-
+var newArrayOfObjects2 = [];
 for (var i=0; i<arrayOfObjects2.length; i++) {
-  arrayOfObjects2[i].titleU = arrayOfObjects2[i].title.toUpperCase();
+  newArrayOfObjects2.push(arrayOfObjects2[i]);
+  newArrayOfObjects2[i].titleUpperCased = newArrayOfObjects2[i].title.toUpperCase();
 }
-
-console.log(arrayOfObjects2);
+console.log(newArrayOfObjects2);
 
 // 10)
 var array5 = ['veg','products','meat','fruits','dairy'];
