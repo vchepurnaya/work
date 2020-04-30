@@ -1,4 +1,4 @@
-var array = ['apple','orange','orange','grape'];
+var array = ['apple', 'orange', 'orange', 'grape'];
 
 // 1)
 array.unshift('pineapple');
@@ -15,16 +15,12 @@ console.log('Результат вывода 3 задания: ' + array);
 
 // 4)
 var newArray = [];
-for (var i=0; i<array.length; i++) {
-
-  if (newArray.indexOf(array[i]) ) {
+for (var i = 0; i < array.length; i++) {
+  if (newArray.indexOf(array[i]) === -1) {
     newArray.push(array[i]);
   }
-  else if (newArray.indexOf(array[i]) === array[i].indexOf(newArray[i])) {
-    delete array[i];
-  }
-
 }
+
 console.log('Результат вывода 4 задания: ' + newArray);
 
 // 5)
@@ -83,19 +79,23 @@ for (var i=0; i<arrayOfObjects.length; i++) {
 
 // 9)
 var arrayOfObjects2 = [
-  { title: 'artist'},
-  { title: 'writer'},
-  { title: 'waiter'},
-  { title: 'actor'}
+  { title: 'artist' },
+  { title: 'writer' },
+  { title: 'waiter' },
+  { title: 'actor' }
 ];
 
-console.log('Результат вывода 9 задания: ');
 var newArrayOfObjects2 = [];
-for (var i=0; i<arrayOfObjects2.length; i++) {
-  newArrayOfObjects2.push(arrayOfObjects2[i]);
-  newArrayOfObjects2[i].titleUpperCased = newArrayOfObjects2[i].title.toUpperCase();
+for (var i = 0; i < arrayOfObjects2.length; i++) {
+  var newObject = {};
+  newObject.title = arrayOfObjects2[i].title;
+  newObject.titleUpperCased = newObject.title.toUpperCase();
+  
+  
+  newArrayOfObjects2.push(newObject);
 }
-console.log(newArrayOfObjects2);
+
+console.log('Результат вывода 9 задания: ' + newArrayOfObjects2);
 
 // 10)
 var array5 = ['veg','products','meat','fruits','dairy'];
