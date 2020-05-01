@@ -24,10 +24,10 @@ for (var i = 0; i < array.length; i++) {
 console.log('Результат вывода 4 задания: ' + newArray);
 
 // 5)
-var array2 = ['apple', 8, 14, 5, 'orange', 20, 'grape', 1, 'orange'];
+var array2 = ['apple', 8, 14, 5, 'orange', 20, 'grape', 1, 'orange', '19'];
 console.log('Результат вывода 5 задания: ');
-for (var i=0; i<array2.length; i++){
-  if (array2[i] > 7) {
+for (var i = 0; i < array2.length; i++){
+  if (array2[i] > 7 && typeof array2[i] === "number") {
     console.log(i + ' - ' + array2[i]);
   }
 }
@@ -35,8 +35,8 @@ for (var i=0; i<array2.length; i++){
 // 6)
 var array3 = ['red', 'green', 'orange', 'purple', 1, 2, 14];
 console.log('Результат вывода 6 задания: ');
-for (var i=0; i<array3.length; i++){
-  if (array3[i].length > 5) {
+for (var i = 0; i < array3.length; i++){
+  if (array3[i].length > 5 && typeof array3[i] === "string") {
     console.log(i + ' - ' + array3[i]);
   }
 }
@@ -48,11 +48,11 @@ console.log('Результат вывода 7 задания: ');
 
 for (var i = 0; i < array4.length; i++) {
 
-  if (typeof array4[i]==="number") {
+  if (typeof array4[i] === "number") {
     console.log('This is a number');
   }
 
-  else if (typeof array4[i]==="string") {
+  else if (typeof array4[i] === "string") {
     console.log('This is a string');
   }
 
@@ -70,7 +70,7 @@ var arrayOfObjects = [
   { id: 5, message: 'great', isHidden: true }
 ];
 console.log('Результат вывода 8 задания: ');
-for (var i=0; i<arrayOfObjects.length; i++) {
+for (var i = 0; i < arrayOfObjects.length; i++) {
 
   if (arrayOfObjects[i].isHidden !== true) {
     console.log(arrayOfObjects[i].message);
@@ -87,20 +87,20 @@ var arrayOfObjects2 = [
 
 var newArrayOfObjects2 = [];
 for (var i = 0; i < arrayOfObjects2.length; i++) {
-  var newObject = {};
-  newObject.title = arrayOfObjects2[i].title;
-  newObject.titleUpperCased = newObject.title.toUpperCase();
-  
-  
+  var newObject = {
+    title: arrayOfObjects2[i].title,
+    titleUpperCased: arrayOfObjects2[i].title.toUpperCase()
+  };
+
   newArrayOfObjects2.push(newObject);
 }
-
-console.log('Результат вывода 9 задания: ' + newArrayOfObjects2);
+console.log('Результат вывода 9 задания: ');
+console.log(newArrayOfObjects2);
 
 // 10)
-var array5 = ['veg','products','meat','fruits','dairy'];
+var array5 = ['veg', 'products', 'meat', 'fruits', 'dairy'];
 var newArray5 = [];
-for (var i=0; i<array5.length; i++) {
+for (var i = 0; i < array5.length; i++) {
   if (array5[i].indexOf('u') > -1) {
     newArray5.push(array5[i]);
   }
@@ -110,12 +110,13 @@ console.log('Результат вывода 10 задания: ' + newArray5);
 // 11)
 var array6 = [1,10,15,20,38,41,45];
 console.log('Результат вывода 11 задания: ');
-for (var i=0; i<array6.length; i++) {
-  if (array6[i]%2===0){
-    console.log(array6[i] + ' - ' + 'even');
+for (var i = 0; i < array6.length; i++) {
+  var index = array6[i];
+  if (index % 2 === 0){
+    console.log(index + ' - ' + 'even');
   }
   else {
-    console.log(array6[i] + ' - ' + 'add');
+    console.log(index + ' - ' + 'add');
   }
 }
 
