@@ -1,0 +1,23 @@
+body {
+    background-color: darkgoldenrod;
+
+}
+.b-tasks {
+    background-color: maroon;
+    width: 400px;
+    height: 300px;
+    margin: 40px auto 0;
+}
+.l-tasks {
+   margin: 0 20px;
+  }
+.l-tasks_item {
+    margin: 10px 0;
+}
+.l-tasks_item:nth-child(n+2) {
+    border-top:1px dashed #fff;
+
+  }
+
+
+
