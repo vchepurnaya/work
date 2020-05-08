@@ -20,7 +20,7 @@ body {
     padding: 20px;
 }
 .l-tasks_inner {
-    margin-top: 20px;
+    padding-top: 20px;
     font-style: italic;
 }
 .l-tasks_item {
@@ -33,16 +33,20 @@ body {
     margin-top: 20px;
     border-top:1px dashed #fff;
 }
+.l-tasks_item:nth-child(3){
+    padding-top: 15px;
+}
 ._color-scheme-light .l-tasks_btn {
     background-color: #555354;
     color: #f9f9f9;
-
 }
 .l-tasks_btn {
-    margin-top: 15px;
     background-color: #c4c4c4 ;
     padding: 10px;
     color: #9b2837;
     font-weight: 700;
     border: 1px solid #fff;
+}
+._remove {
+    margin-top: 15px;
 }
