@@ -72,7 +72,7 @@ var arrayOfObjects = [
 console.log('Результат вывода 8 задания: ');
 for (var i = 0; i < arrayOfObjects.length; i++) {
 
-  if (arrayOfObjects[i].isHidden !== true) {
+  if (arrayOfObjects[i].isHidden) {
     console.log(arrayOfObjects[i].message);
   }
 }
