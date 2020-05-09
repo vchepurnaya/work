@@ -1,21 +1,18 @@
-var oddOrEven = document.querySelector('.l-tasks_item-text');
+var oddOrEven = document.querySelector('.l-tasks__item-text');
 var elBody = document.body;
 var btnToggle = document.querySelector('._toggle');
-var arrOfSpans = document.querySelectorAll('.l-tasks_span');
+var arrOfSpans = document.querySelectorAll('.l-tasks__span');
 var btnRemove = document.querySelector('._remove');
 var clickToggleHandler = function() {
   elBody.classList.toggle('_color-scheme-light');
 };
 var removeSpanHandler = function() {
-  var lastSpan = document.querySelectorAll('.l-tasks_span')[arrOfSpans.length-1];
-  var firstSpan = document.querySelectorAll('.l-tasks_span')[0];
-
   if (elBody.classList.contains('_color-scheme-vivid')) {
-    lastSpan.remove();
+    arrOfSpans[arrOfSpans.length-1].remove();
+  } else {
+    arrOfSpans[0].remove();
   }
-  else {
-    firstSpan.remove();
-  }
+
   btnRemove.removeEventListener('click', removeSpanHandler);
 };
 
@@ -33,10 +30,5 @@ btnRemove.addEventListener('click', removeSpanHandler);
    }
    else {
      oddOrEven.innerHTML = 'This is not a number'
-   }
+   };
 }(5));
-
-
-
-
-
