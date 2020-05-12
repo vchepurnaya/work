@@ -1,0 +1,17 @@
+body {
+    background-color: #1a507b;
+    display: flex;
+    justify-content: center;
+}
+
+.b-universe {
+    background-color: aqua;
+    display: inline-block;
+    width: 600px;
+    height: 400px;
+    margin-top: 50px;
+}
+
+.b-universe__img {
+   width: 100px;
+}
