@@ -8,7 +8,7 @@ var clickToggleHandler = function() {
 };
 var removeSpanHandler = function() {
   if (elBody.classList.contains('_color-scheme-vivid')) {
-    arrOfSpans[arrOfSpans.length-1].remove();
+    arrOfSpans[arrOfSpans.length - 1].remove();
   } else {
     arrOfSpans[0].remove();
   }
@@ -20,15 +20,13 @@ btnToggle.addEventListener('click', clickToggleHandler);
 btnRemove.addEventListener('click', removeSpanHandler);
 
 ;(function(num) {
-   if (typeof num === 'number' ){
-     if (num % 2 === 0) {
-       oddOrEven.innerHTML = 'Number ' + num + ' is even'
-     }
-     else {
-       oddOrEven.innerHTML = 'Number ' + num + ' is odd'
-     }
-   }
-   else {
-     oddOrEven.innerHTML = 'This is not a number'
-   };
+    if (typeof num === 'number' && num % 2 === 0){
+        oddOrEven.innerHTML = 'Number ' + num + ' is even'
+        }
+        else if (typeof num === 'number' && num % 2 !== 0)  {
+            oddOrEven.innerHTML = 'Number ' + num + ' is odd'
+        }
+        else {
+        oddOrEven.innerHTML = 'This is not a number'
+    }
 }(5));
