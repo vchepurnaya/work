@@ -5,6 +5,7 @@ body {
 }
 
 .b-universe {
+    position: relative;
     background-color: aqua;
     display: inline-block;
     width: 600px;
@@ -13,5 +14,7 @@ body {
 }
 
 .b-universe__img {
-   width: 100px;
+    position: absolute;
+    transition: transform .2s ease-out;
+    width: 100px;
 }
