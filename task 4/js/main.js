@@ -3,9 +3,12 @@ var earth = document.querySelector('.b-universe__img');
 
 galaxy.addEventListener('click', function (e) {
 
-earth.style.transform = 'translate(' + e.offsetX + 'px, ' + e.offsetY + 'px)';
+earth.style.transform = 'translate(' + e.offsetX + 'px, ' +  e.offsetY + 'px)';
 
-/*earth.style.display = 'none';
-earth.style.display = '';*/
+  if (earth === e.target ) {
+    earth.style.display = 'none';
+  } else {
+    earth.style.display = '';
+  }
 
 });
