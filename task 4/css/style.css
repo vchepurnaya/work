@@ -6,7 +6,7 @@ body {
 
 .b-universe {
     position: relative;
-    background-color: aqua;
+    background-image: url(img/galaxy.jpg);
     display: inline-block;
     width: 600px;
     height: 400px;
