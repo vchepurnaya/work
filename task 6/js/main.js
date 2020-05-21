@@ -8,12 +8,12 @@ var obj = {
   field_4: 'Hello',
   field_5: 15
 };
+var index;
 var check = false;
 
 button.addEventListener('click', function () {
   if (!check) {
     for (var prop in obj) {
-
       var field = obj[prop];
 
       if (Array.isArray(field)) {
@@ -23,8 +23,17 @@ button.addEventListener('click', function () {
     check = true;
   }
 
-body.style.backgroundColor =
-    (color[Math.floor(Math.random() * (color.length))]);
-  
+index = Math.floor(Math.random() * (color.length));
+body.style.backgroundColor = (color[index]);
 });
 
+document.addEventListener('keydown', function (e) {
+
+    if (e.code === 'ArrowRight') {
+      index >= color.length - 1 ? index = 0 : index++;
+    } else if (e.code === 'ArrowLeft') {
+      index === 0 ? index = color.length - 1 : index--;
+    }
+
+  body.style.backgroundColor = color[index];
+});
