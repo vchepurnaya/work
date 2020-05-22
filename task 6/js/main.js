@@ -9,10 +9,9 @@ var obj = {
   field_5: 15
 };
 var index;
-var check = false;
 
 button.addEventListener('click', function () {
-  if (!check) {
+  if (!color.length) {
     for (var prop in obj) {
       var field = obj[prop];
 
@@ -20,7 +19,6 @@ button.addEventListener('click', function () {
         color = field;
       }
     }
-    check = true;
   }
 
 index = Math.floor(Math.random() * (color.length));
@@ -29,11 +27,12 @@ body.style.backgroundColor = (color[index]);
 
 document.addEventListener('keydown', function (e) {
 
-    if (e.code === 'ArrowRight') {
-      index >= color.length - 1 ? index = 0 : index++;
-    } else if (e.code === 'ArrowLeft') {
-      index === 0 ? index = color.length - 1 : index--;
-    }
+  if (e.code === 'ArrowRight') {
+    index >= color.length - 1 ? index = 0 : index++;
+
+  } else if (e.code === 'ArrowLeft') {
+    index === 0 ? index = color.length - 1 : index--;
+  }
 
   body.style.backgroundColor = color[index];
 });
