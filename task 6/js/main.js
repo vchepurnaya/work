@@ -26,13 +26,15 @@ body.style.backgroundColor = (color[index]);
 });
 
 document.addEventListener('keydown', function (e) {
-
-  if (e.code === 'ArrowRight') {
+if (!color.length) {
+  alert('Достаньте массив цветов!');
+} else {
+    if (e.code === 'ArrowRight') {
     index >= color.length - 1 ? index = 0 : index++;
 
   } else if (e.code === 'ArrowLeft') {
     index === 0 ? index = color.length - 1 : index--;
   }
-
+}
   body.style.backgroundColor = color[index];
 });
