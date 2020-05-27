@@ -12,7 +12,9 @@ var index;
 
 button.addEventListener('click', function () {
   if (!color.length) {
+
     for (var prop in obj) {
+
       var field = obj[prop];
 
       if (Array.isArray(field)) {
@@ -21,20 +23,24 @@ button.addEventListener('click', function () {
     }
   }
 
-index = Math.floor(Math.random() * (color.length));
-body.style.backgroundColor = (color[index]);
+index = Math.floor(Math.random() * color.length);
+body.style.backgroundColor = color[index];
 });
 
 document.addEventListener('keydown', function (e) {
-if (!color.length) {
+var isRight = e.code === 'ArrowRight';
+var isLeft = e.code === 'ArrowLeft';
+
+if ((isRight || isLeft) & !color.length ) {
   alert('Достаньте массив цветов!');
 } else {
-    if (e.code === 'ArrowRight') {
-    index >= color.length - 1 ? index = 0 : index++;
 
-  } else if (e.code === 'ArrowLeft') {
+    if (isRight) {
+    index >= color.length - 1 ? index = 0 : index++;
+  } else if (isLeft) {
     index === 0 ? index = color.length - 1 : index--;
   }
 }
+
   body.style.backgroundColor = color[index];
 });
