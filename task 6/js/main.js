@@ -31,16 +31,15 @@ document.addEventListener('keydown', function (e) {
 var isRight = e.code === 'ArrowRight';
 var isLeft = e.code === 'ArrowLeft';
 
-if ((isRight || isLeft) & !color.length ) {
+if ((isRight || isLeft) & !color.length) {
   alert('Достаньте массив цветов!');
 } else {
-
     if (isRight) {
-    index >= color.length - 1 ? index = 0 : index++;
-  } else if (isLeft) {
-    index === 0 ? index = color.length - 1 : index--;
+      index >= color.length - 1 ? index = 0 : index++;
+    } else if (isLeft) {
+      index === 0 ? index = color.length - 1 : index--;
+    }
   }
-}
 
   body.style.backgroundColor = color[index];
 });
