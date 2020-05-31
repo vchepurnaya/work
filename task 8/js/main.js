@@ -60,25 +60,3 @@ button.addEventListener('click', (function () {
     button.innerText = counter;
   }
 })());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
