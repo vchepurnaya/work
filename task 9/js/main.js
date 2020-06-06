@@ -9,7 +9,7 @@ console.log(`Hello, ${name}`);
 printUserName('John');
 printUserName();
 
-//2 (доделать так чтобы объект пушился)
+//2
 
 const arr = [
     {
