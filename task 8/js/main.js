@@ -16,6 +16,7 @@ for (var prop in object) {
 }
 
 // 3
+
 function printSquareRoot(num, func) {
   func(num);
 }
@@ -30,9 +31,14 @@ function outer() {
   var array2 = [];
 
    function inner (arg) {
-     var lengthOfArray = array2.length;
 
-     lengthOfArray === 5 ? lengthOfArray = 0 : array2.push(arg);
+     if(array2.length >= 5){
+       array2 = [];
+       array2.push(arg);
+     }
+     else{
+       array2.push(arg);
+     }
 
      console.log(array2);
   }
@@ -47,16 +53,23 @@ newInner(3);
 newInner(4);
 newInner(5);
 newInner(6);
+newInner(7);
+newInner(8);
+newInner(9);
+
 
 //5
 
 var button = document.querySelector('button');
 
-button.addEventListener('click', (function () {
+button.addEventListener('click', name());
+
+function name() {
   var counter = 0;
 
-  return function() {
+
+  return function(e) {
     counter++;
-    button.innerText = counter;
+    e.currentTarget.innerText = counter;
   }
-})());
+}
