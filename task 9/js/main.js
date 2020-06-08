@@ -103,8 +103,3 @@ const obj1 = {
 };
 
 obj.printInfo.call(obj1);
-
-
-
-
-
