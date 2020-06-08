@@ -62,6 +62,24 @@ console.log(curr(8));
 
 //5
 
+let setNum = function(x) {
+    return {
+        plus: function (s) {
+            x+=s;
+            return this;
+        },
+        minus: function (z) {
+            x-=z;
+            return this;
+        },
+        showNum: function () {
+            return x;
+        }
+    }
+}
+
+console.log(setNum(10).plus(7).minus(2).showNum());
+
 //6
 
 let {usa, europe} = arrOfObjects;
@@ -85,3 +103,8 @@ const obj1 = {
 };
 
 obj.printInfo.call(obj1);
+
+
+
+
+
