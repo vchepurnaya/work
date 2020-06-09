@@ -36,13 +36,13 @@ let arrOfObjects = {
 }
 
 let newObj = arr.reduce(function (acc,item) {
-    if (item.country === 'USA') {
-       acc.usa.push(item.city);
-    } else {
-        acc.europe.push(item.city);
-    }
+
+    item.country === 'USA' ? acc.usa.push(item.city) : acc.europe.push(item.city);
+
     return acc;
+
 }, arrOfObjects);
+
 console.log(newObj);
 
 //3
