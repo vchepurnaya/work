@@ -30,15 +30,9 @@ printSquareRoot(25, funcFromArgument);
 function outer() {
   var array2 = [];
 
-   function inner (arg) {
+   function inner(arg) {
 
-     if(array2.length >= 5){
-       array2 = [];
-       array2.push(arg);
-     }
-     else{
-       array2.push(arg);
-     }
+     array2.length >= 5 ? array2 = [arg] : array2.push(arg);
 
      console.log(array2);
   }
