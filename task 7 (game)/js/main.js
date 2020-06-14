@@ -25,20 +25,25 @@ graveyard.addEventListener('click', function (e) {
 
 document.addEventListener('keydown', function (e) {
   if (e.code === 'Enter') {
-    imgOfShooter.style.width = '90px';
+    imgOfShooter.style.transform = 'scale(0.9,0.9)';
   }
 });
 
 document.addEventListener('keyup', function (e) {
+  var rect = shooter.getBoundingClientRect();
+  var aimCenterX = rect.x;
+  var aimCenterY = rect.y;
+
   if (e.code === 'Enter') {
-    imgOfShooter.style.width = '';
+    imgOfShooter.style.transform = 'scale(1,1)';
   }
+
+  console.log(aimCenterX, aimCenterY);
 });
 
-/*
 function setRandomCoords() {
-  var x = Math.floor(Math.random() * graveyard.offsetX) - ghost.offsetWidth;
-  var y = Math.floor(Math.random() * graveyard.offsetY) - ghost.offsetHeight;
+  var x = Math.floor(Math.random() * (graveyard.offsetWidth - ghost.offsetWidth));
+  var y = Math.floor(Math.random() * (graveyard.offsetHeight - ghost.offsetHeight));
   var limitX = graveyard.offsetWidth - ghost.offsetWidth;
   var limitY = graveyard.offsetHeight - shooter.offsetHeight;
 
@@ -55,11 +60,13 @@ function setRandomCoords() {
 
   ghost.style.left =  x + 'px';
   ghost.style.top =  y + 'px';
-}
+};
 
 setInterval(function () {
-if (ghost.style.display === none) {
+if (ghost.style.display === 'none') {
   ghost.removeAttribute('style');
+} else if (ghost.style.display === '') {
+  ghost.setAttribute('style', 'display: none;');
 }
 setRandomCoords();
-}, 3000)*/
+}, 3000);
