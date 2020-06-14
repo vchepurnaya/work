@@ -18,6 +18,8 @@ body {
 
 .b-shooter__aim {
 	position: absolute;
+	width: 90px;
+	height: 90px;
 	transition: transform .2s ease-out;
 	top: 0;
 	left: 0;
@@ -26,10 +28,23 @@ body {
 .b-shooter__img-aim {
 	width: 100px;
 }
+
+.b-shooter__img-fire {
+	position: absolute;
+	width: 100px;
+	height: 130px;
+	left: 0;
+	bottom: 0;
+	transition: opacity ease-in;
+	visibility: hidden;
+}
+
 .b-shooter__img-ghost {
 	width: 120px;
 	height: 120px;
 	position: absolute;
 	top: 0;
 	left: 0;
+	transition: opacity ease-in;
+	pointer-events: none;
 }
