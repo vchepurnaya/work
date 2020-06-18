@@ -1,6 +1,6 @@
 'use strict'
 
-const request = function (cb) {
+const requestUser= function (cb) {
 
     const users = [
         {
@@ -30,6 +30,12 @@ const request = function (cb) {
         }
     ];
 
+    setTimeout(function () {
+        cb(users);
+    }, 1000);
+}
+const requestCountries = function (cb) {
+
     const countries = [
         {
             userId: 44,
@@ -54,34 +60,19 @@ const request = function (cb) {
     ];
 
     setTimeout(function () {
-        cb(users);
-    }, 3000);
-
-    setTimeout(function (arg) {
         cb(countries);
-        arg();
-    }, 5000, mergeTwoArrays);
+    }, 3000);
+}
 
-    function mergeTwoArrays() {
-        let resultArr = users.map(function (user) {
-            let filteredCountryArr = countries.filter(function (country) {
-                return country.userId === user.id;
-            });
+function mergeTwoArrays(users, countries) {
+    return users.map(user => {
+        let { country } = countries.find(country => country.userId === user.id);
 
-        user.country = filteredCountryArr[0].country;
-
-        return user;
-        });
-
-    console.log(resultArr);
-    }
-};
-
-request(function (x) {
-        console.log(x);
+        return {
+            ...user,
+            country
+        };
     });
+}
 
-
-
-
-
+export {requestUser, requestCountries, mergeTwoArrays}
