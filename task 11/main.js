@@ -1,3 +1,5 @@
+'use strict'
+
 const requestForUsers = function(success, error, url){
     const xhr = new XMLHttpRequest();
 
@@ -11,7 +13,7 @@ const requestForUsers = function(success, error, url){
             } else {
                 error({
                     code: xhr.status,
-                    message: xhr.responseText
+                    message: `Error: ${xhr.status}`
                 });
             }
         }
