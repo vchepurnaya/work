@@ -3,7 +3,6 @@ var shooter = document.querySelector('.b-shooter__aim');
 var imgOfShooter = document.querySelector('.b-shooter__img-aim');
 var ghost = document.querySelector('.b-shooter__img-ghost');
 var fire = document.querySelector('.b-shooter__img-fire');
-var intervalIdGhost = setInterval(setIntervalForGhost,3000);
 
 graveyard.addEventListener('click', function (e) {
   var x = e.offsetX - shooter.offsetWidth / 2;
@@ -46,7 +45,7 @@ document.addEventListener('keyup', function (e) {
         aimCenterX <= rectGhost.right - 20) {
 
       setAnimation();
-      clearInterval(intervalIdGhost);
+      ghost.style.animationPlayState = 'paused';
       setTimeout(resetAnimation, delayToReset);
     }
 
@@ -69,8 +68,6 @@ function resetAnimation() {
 function setRandomCoords() {
   var x = Math.floor(Math.random() * (graveyard.offsetWidth - ghost.offsetWidth));
   var y = Math.floor(Math.random() * (graveyard.offsetHeight - ghost.offsetHeight));
-  var limitX = graveyard.offsetWidth - ghost.offsetWidth;
-  var limitY = graveyard.offsetHeight - shooter.offsetHeight;
 
   ghost.style.left =  x + 'px';
   ghost.style.top =  y + 'px';
@@ -82,5 +79,8 @@ function setIntervalForGhost() {
   } else if (ghost.style.display === '') {
     ghost.setAttribute('style', 'display: none;');
   }
-  setRandomCoords();
+
+    setRandomCoords();
 };
+
+setInterval(setIntervalForGhost,3000);
