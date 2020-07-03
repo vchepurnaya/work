@@ -24,7 +24,7 @@ body {
 	transition: transform .2s ease-out;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 2;
 }
 
 .b-shooter__img-aim {
@@ -51,13 +51,48 @@ body {
 	pointer-events: none;
 	animation: ghost-movements 2s infinite;
 	transition: opacity ease-in;
+	z-index: 1;
 }
 
-.animation {
-	transition-delay: .2s;
-	transition-duration: .3s;
-	opacity: 0;
-	visibility: visible;
+.b-shooter__progress {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background-color: rgba(6,6,6,.5);
+	width: 28px;
+	height: 330px;
+	border-radius: 50px;
+	position: absolute;
+	left: 5px;
+	margin: auto 0;
+	top: 0;
+	bottom: 0;
+}
+
+.b-shooter__progress-icon {
+	flex-basis: 20px;
+	height: 20px;
+	margin-top: 12px;
+}
+
+.b-shooter__health {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	background-color: rgba(6,6,6,.5);
+	width: 120px;
+	height: 35px;
+	border-radius: 50px;
+	position: absolute;
+	margin: 0 auto;
+	bottom: 5px;
+	right: 5px;
+}
+
+.b-shooter__health-icon {
+	fill: #ff0000;
+	width: 25px;
+	margin: auto 5px;
 }
 
 @keyframes ghost-movements {
@@ -84,4 +119,9 @@ body {
 	100% {
 		transform: scale(1) translateY(0);
 	}
+}
+
+.progress {
+	transform: rotateX(180deg);
+	opacity: 0.2;
 }

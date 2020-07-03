@@ -3,6 +3,9 @@ var shooter = document.querySelector('.b-shooter__aim');
 var imgOfShooter = document.querySelector('.b-shooter__img-aim');
 var ghost = document.querySelector('.b-shooter__img-ghost');
 var fire = document.querySelector('.b-shooter__img-fire');
+var progress = document.querySelectorAll('.b-shooter__progress-icon');
+var delayToReset = 500;
+
 
 graveyard.addEventListener('click', function (e) {
   var x = e.offsetX - shooter.offsetWidth / 2;
@@ -10,18 +13,20 @@ graveyard.addEventListener('click', function (e) {
   var limitX = e.currentTarget.offsetWidth - shooter.offsetWidth;
   var limitY = e.currentTarget.offsetHeight - shooter.offsetHeight;
 
-  if (x < 0) {
-    x = 0;
-  } else if (x > limitX) {
+  if (ghost.style.animationPlayState !== 'paused') {
+    if (x < 0) {
+      x = 0;
+    } else if (x > limitX) {
       x = limitX;
-  }
-  if (y < 0) {
-    y = 0;
-  } else if (y > limitY) {
+    }
+    if (y < 0) {
+      y = 0;
+    } else if (y > limitY) {
       y = limitY;
+    }
   }
+    shooter.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 
-  shooter.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 });
 
 document.addEventListener('keydown', function (e) {
@@ -34,7 +39,6 @@ document.addEventListener('keyup', function (e) {
   var rectGhost = ghost.getBoundingClientRect();
   var aimCenterX = shooter.getBoundingClientRect().x + shooter.getBoundingClientRect().width / 2;
   var aimCenterY = shooter.getBoundingClientRect().y + shooter.getBoundingClientRect().height / 2;
-  var delayToReset = 500;
 
   if (e.code === 'Enter') {
     imgOfShooter.style.transform = 'scale(1,1)';
@@ -45,7 +49,7 @@ document.addEventListener('keyup', function (e) {
         aimCenterX <= rectGhost.right - 20) {
 
       setAnimation();
-      ghost.style.animationPlayState = 'paused';
+       // переместить в settimeout
       setTimeout(resetAnimation, delayToReset);
     }
 
@@ -54,15 +58,23 @@ document.addEventListener('keyup', function (e) {
 });
 
 function setAnimation() {
-  fire.classList.toggle('animation');
-  ghost.classList.toggle('animation');
+  fire.style.cssText = 'visibility: visible; opacity: 0;'
+  fire.style.transitionProperty = delayToReset * .4 + 'ms';
+  fire.style.transitionDuration = delayToReset * .6 + 'ms';
+  ghost.style.opacity = '0';
+  ghost.style.transitionProperty = delayToReset * .4 + 'ms';
+  ghost.style.transitionDuration = delayToReset * .6 + 'ms';
   imgOfShooter.style.display = 'none';
+  ghost.style.animationPlayState = 'paused';
 };
 
 function resetAnimation() {
-  fire.classList.toggle('animation');
-  ghost.classList.toggle('animation');
+
+  fire.removeAttribute('style');
+  ghost.removeAttribute('style');
   imgOfShooter.style.display = '';
+  ghost.setAttribute('style', 'display: none;');
+  ghost.style.animationPlayState = 'running';
 };
 
 function setRandomCoords() {
@@ -74,13 +86,22 @@ function setRandomCoords() {
 };
 
 function setIntervalForGhost() {
-  if (ghost.style.display === 'none') {
-    ghost.removeAttribute('style');
-  } else if (ghost.style.display === '') {
-    ghost.setAttribute('style', 'display: none;');
-  }
+  if (ghost.style.animationPlayState !== 'paused') {
+
+    if (ghost.style.display === 'none') {
+      ghost.removeAttribute('style');
+    }
 
     setRandomCoords();
+  }
 };
 
 setInterval(setIntervalForGhost,3000);
+
+function markProgress() {
+for (let i = 0; i < progress.length; i++) {
+  if (fire.style.visibility === 'visible') {
+
+  }
+}
+}
