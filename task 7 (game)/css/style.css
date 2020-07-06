@@ -122,6 +122,13 @@ body {
 }
 
 .progress {
-	transform: rotateX(180deg);
+	transform: rotate(180deg);
 	opacity: 0.2;
+	transition: all 0.2s ease-in-out;
+}
+
+.health {
+	transform: scale(0.75,0.75);
+	fill: rgba(90,87,98,0.7);
+	transition: all 0.2s ease-in-out;
 }
