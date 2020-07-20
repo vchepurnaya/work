@@ -5,62 +5,82 @@ var ghost = document.querySelector('.b-shooter__img-ghost');
 var fire = document.querySelector('.b-shooter__img-fire');
 var progress = document.querySelectorAll('.b-shooter__progress-icon');
 var health = document.querySelectorAll('.b-shooter__health-icon');
+var lifeStatus = document.querySelector('.b-shooter__health');
+var finalTitle = document.querySelector('.b-shooter__game-over-title');
+
 
 var delayToReset = 500;
-var markProgress = markProgressOut();
-var markLifeStatus = markLifeStatusOut();
 var isGameOver = false;
 var isLastProgress;
+var isOneTime;
+
+var markProgress = markProgressOut();
+var markLifeStatus = markLifeStatusOut();
 
 graveyard.addEventListener('click', function (e) {
-  if (!isGameOver && ghost.style.animationPlayState !== 'paused') {
-  var x = e.offsetX - shooter.offsetWidth / 2;
-  var y = e.offsetY - shooter.offsetHeight / 2;
-  var limitX = e.currentTarget.offsetWidth - shooter.offsetWidth;
-  var limitY = e.currentTarget.offsetHeight - shooter.offsetHeight;
+    if (isGameOver && ghost.style.animationPlayState === 'paused') {
+        return
+    }
+    ;
 
-        if (x < 0) {
-          x = 0;
-        } else if (x > limitX) {
-          x = limitX;
-        }
+    var x = e.offsetX - shooter.offsetWidth / 2;
+    var y = e.offsetY - shooter.offsetHeight / 2;
+    var limitX = e.currentTarget.offsetWidth - shooter.offsetWidth;
+    var limitY = e.currentTarget.offsetHeight - shooter.offsetHeight;
 
-        if (y < 0) {
-          y = 0;
-        } else if (y > limitY) {
-          y = limitY;
-        }
+    if (x < 0) {
+        x = 0;
 
-  shooter.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-}
+    } else if (x > limitX) {
+        x = limitX;
+    }
+
+    if (y < 0) {
+        y = 0;
+
+    } else if (y > limitY) {
+        y = limitY;
+    }
+
+    shooter.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
 });
 
-document.addEventListener('keydown', function (e) {
-    if (e.code === 'Enter') {
+document.body.addEventListener('keydown', function (e) {
+    e.preventDefault();
+
+    if (e.code === 'Space') {
         imgOfShooter.style.transform = 'scale(0.9)';
     }
 });
 
-document.addEventListener('keyup', function (e) {
+document.body.addEventListener('keyup', function (e) {
     var rectGhost = ghost.getBoundingClientRect();
     var aimCenterX = shooter.getBoundingClientRect().x + shooter.getBoundingClientRect().width / 2;
     var aimCenterY = shooter.getBoundingClientRect().y + shooter.getBoundingClientRect().height / 2;
 
-    if (e.key === 'Enter') {
+    e.preventDefault();
+
+    if (e.code === 'Space') {
         imgOfShooter.style.transform = 'scale(1)';
 
         if (aimCenterY >= rectGhost.top + 20 &&
             aimCenterY <= rectGhost.bottom - 20 &&
             aimCenterX >= rectGhost.left + 20 &&
-            aimCenterX <= rectGhost.right - 20) {
+            aimCenterX <= rectGhost.right - 20 && !isGameOver) {
 
             setAnimation();
             setTimeout(resetAnimation, delayToReset);
-            markProgress();
+            if (isOneTime) {
+                markProgress.getNext();
+            }
             isLastProgress = true;
         }
 
         console.log(aimCenterY, aimCenterX);
+    }
+
+    if (e.key === 'Enter' && isGameOver === true) {
+        reset();
     }
 });
 
@@ -75,12 +95,17 @@ function setAnimation() {
 }
 
 function resetAnimation() {
-    fire.removeAttribute('style');
+    if (isGameOver === true) {
+        dropTheCurtain(true)
 
-    ghost.removeAttribute('style');
-    ghost.setAttribute('style', 'display: none;');
+    } else {
+        fire.removeAttribute('style');
 
-    imgOfShooter.style.display = '';
+        ghost.removeAttribute('style');
+        ghost.style.display = 'none';
+
+        imgOfShooter.style.display = '';
+    }
 }
 
 function setRandomCoords() {
@@ -92,14 +117,22 @@ function setRandomCoords() {
 }
 
 function setIntervalForGhost() {
-    if (ghost.style.animationPlayState !== 'paused') {
-        if (ghost.style.display === 'none') {
-            ghost.removeAttribute('style');
-        }
-        setRandomCoords();
-        markLifeStatus();
-        isLastProgress = false;
+    if (
+        ghost.style.animationPlayState === 'paused' || isGameOver) {
+        return;
     }
+
+    if (ghost.style.display === 'none') {
+        ghost.style.display = '';
+        setRandomCoords();
+
+    } else {
+        setRandomCoords();
+        markLifeStatus.getNext();
+    }
+
+    isOneTime = true;
+    isLastProgress = false;
 }
 
 setInterval(setIntervalForGhost, 3000);
@@ -107,27 +140,77 @@ setInterval(setIntervalForGhost, 3000);
 function markProgressOut() {
     var i = 0;
 
-    function markProgress() {
-        if (ghost.style.animationPlayState === 'paused') { //исправить баг!!!!!!!!!!!
-            progress[i].classList.add('progress');
-            i++;
-            if (i === progress.length) {
-                isGameOver = true;
+    return {
+        getNext: function () {
+            if (ghost.style.animationPlayState === 'paused' && isOneTime) { //исправить баг!!!!!!!!!!!
+                progress[i].classList.add('_progress');
+                i++;
+                isOneTime = false;
+
+                if (i === progress.length) {
+                    isGameOver = true;
+                }
             }
+        },
+        reset: function () {
+            for (i = 0; i < progress.length; i++) {
+                progress[i].classList.remove('_progress');
+            }
+
+            i = 0;
         }
     }
-
-    return markProgress;
 };
 
 function markLifeStatusOut() {
     var i = 0;
 
-    function markLifeStatus() {
-      if (isLastProgress !== undefined && !isLastProgress) {
-        health[i].classList.add('health');
-        i++;
-      }
+    return {
+        getNext: function () {
+            if (lifeStatus.classList.contains('_blink') && !isLastProgress) {
+                isGameOver = true;
+                dropTheCurtain(false);
+
+            } else if (isLastProgress !== undefined && !isLastProgress) {
+                health[i].classList.add('_health');
+                i++;
+
+                if (i === health.length) {
+                    lifeStatus.classList.add('_blink');
+                }
+            }
+        },
+        reset: function () {
+            for (i = 0; i < health.length; i++) {
+                health[i].classList.remove('_health');
+            }
+
+            i = 0;
+        }
     }
-    return markLifeStatus;
 };
+
+function dropTheCurtain(isWin) {
+    if (isWin === true) {
+        graveyard.classList.add('_win');
+        finalTitle.innerText = 'You win';
+
+    } else {
+        finalTitle.innerText = 'You lose';
+        graveyard.classList.add('_lose');
+        ghost.removeAttribute('style');
+    }
+}
+
+function reset() {
+    isGameOver = false;
+    graveyard.classList.remove('_lose');
+    graveyard.classList.remove('_win');
+    imgOfShooter.removeAttribute('style');
+    fire.removeAttribute('style');
+    ghost.removeAttribute('style');
+    ghost.style.display = 'none';
+    markProgress.reset();
+    markLifeStatus.reset();
+    lifeStatus.classList.remove('_blink');
+}
