@@ -1,32 +1,35 @@
-var graveyard = document.querySelector('.b-shooter');
-var shooter = document.querySelector('.b-shooter__aim');
-var imgOfShooter = document.querySelector('.b-shooter__img-aim');
-var ghost = document.querySelector('.b-shooter__img-ghost');
-var fire = document.querySelector('.b-shooter__img-fire');
-var progress = document.querySelectorAll('.b-shooter__progress-icon');
-var health = document.querySelectorAll('.b-shooter__health-icon');
-var lifeStatus = document.querySelector('.b-shooter__health');
-var finalTitle = document.querySelector('.b-shooter__game-over-title');
+const graveyard = document.querySelector('.b-shooter');
+const shooter = document.querySelector('.b-shooter__aim');
+const imgOfShooter = document.querySelector('.b-shooter__img-aim');
+const ghost = document.querySelector('.b-shooter__img-ghost');
+const fire = document.querySelector('.b-shooter__img-fire');
+const progress = document.querySelectorAll('.b-shooter__progress-icon');
+const health = document.querySelectorAll('.b-shooter__health-icon');
+const lifeStatus = document.querySelector('.b-shooter__health');
+const finalTitle = document.querySelector('.b-shooter__game-over-title');
 
+const delayToReset = 500;
+const animation = `opacity: 0;
+                 transition-delay: ${delayToReset * .4}ms;
+                 transition-duration: ${delayToReset * .6}ms;`
 
-var delayToReset = 500;
-var isGameOver = false;
-var isLastProgress;
-var isOneTime;
+let isGameOver = false;
 
-var markProgress = markProgressOut();
-var markLifeStatus = markLifeStatusOut();
+const markProgress = markProgressOut();
+const markLifeStatus = markLifeStatusOut();
 
-graveyard.addEventListener('click', function (e) {
-    if (isGameOver && ghost.style.animationPlayState === 'paused') {
+graveyard.addEventListener('click', e => {
+    if (
+        ghost.style.animationPlayState === 'paused'
+        || isGameOver
+    ) {
         return
     }
-    ;
 
-    var x = e.offsetX - shooter.offsetWidth / 2;
-    var y = e.offsetY - shooter.offsetHeight / 2;
-    var limitX = e.currentTarget.offsetWidth - shooter.offsetWidth;
-    var limitY = e.currentTarget.offsetHeight - shooter.offsetHeight;
+    let x = e.offsetX - shooter.offsetWidth / 2;
+    let y = e.offsetY - shooter.offsetHeight / 2;
+    const limitX = e.currentTarget.offsetWidth - shooter.offsetWidth;
+    const limitY = e.currentTarget.offsetHeight - shooter.offsetHeight;
 
     if (x < 0) {
         x = 0;
@@ -42,53 +45,46 @@ graveyard.addEventListener('click', function (e) {
         y = limitY;
     }
 
-    shooter.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+    shooter.style.transform = `translate(${x}px, ${y}px)`;
 });
 
-document.body.addEventListener('keydown', function (e) {
-    e.preventDefault();
-
-    if (e.code === 'Space') {
+document.body.addEventListener('keydown', e => {
+    if (e.code === 'Space' && !isGameOver) {
+        e.preventDefault();
         imgOfShooter.style.transform = 'scale(0.9)';
     }
 });
 
-document.body.addEventListener('keyup', function (e) {
-    var rectGhost = ghost.getBoundingClientRect();
-    var aimCenterX = shooter.getBoundingClientRect().x + shooter.getBoundingClientRect().width / 2;
-    var aimCenterY = shooter.getBoundingClientRect().y + shooter.getBoundingClientRect().height / 2;
+document.body.addEventListener('keyup', e => {
+    if (e.key === 'Enter' && isGameOver) {
+        return reset();
 
-    e.preventDefault();
-
-    if (e.code === 'Space') {
-        imgOfShooter.style.transform = 'scale(1)';
-
-        if (aimCenterY >= rectGhost.top + 20 &&
-            aimCenterY <= rectGhost.bottom - 20 &&
-            aimCenterX >= rectGhost.left + 20 &&
-            aimCenterX <= rectGhost.right - 20 && !isGameOver) {
-
-            setAnimation();
-            setTimeout(resetAnimation, delayToReset);
-            if (isOneTime) {
-                markProgress.getNext();
-            }
-            isLastProgress = true;
-        }
-
-        console.log(aimCenterY, aimCenterX);
+    } else if (e.code !== 'Space' || isGameOver) {
+        return;
     }
 
-    if (e.key === 'Enter' && isGameOver === true) {
-        reset();
+    imgOfShooter.style.transform = 'scale(1)';
+
+    const rectGhost = ghost.getBoundingClientRect();
+    const rectShooter = shooter.getBoundingClientRect();
+    const aimCenterX = rectShooter.x + rectShooter.width / 2;
+    const aimCenterY = rectShooter.y + rectShooter.height / 2;
+
+    if (aimCenterY >= rectGhost.top + 20 &&
+        aimCenterY <= rectGhost.bottom - 20 &&
+        aimCenterX >= rectGhost.left + 20 &&
+        aimCenterX <= rectGhost.right - 20 &&
+        fire.style.visibility !== 'visible') {
+
+        setAnimation();
+        setTimeout(resetAnimation, delayToReset);
+        markProgress.getNext();
     }
+
+    console.log(aimCenterY, aimCenterX);
 });
 
 function setAnimation() {
-    var animation = `opacity: 0;
-                   transition-delay: ${delayToReset * .4}ms;
-                   transition-duration: ${delayToReset * .6}ms;`
-
     fire.style.cssText += animation + 'visibility: visible;';
     ghost.style.cssText += animation + 'animation-play-state: paused;';
     imgOfShooter.style.display = 'none';
@@ -109,8 +105,8 @@ function resetAnimation() {
 }
 
 function setRandomCoords() {
-    var x = Math.floor(Math.random() * (graveyard.offsetWidth - ghost.offsetWidth));
-    var y = Math.floor(Math.random() * (graveyard.offsetHeight - ghost.offsetHeight));
+    const x = Math.floor(Math.random() * (graveyard.offsetWidth - ghost.offsetWidth));
+    const y = Math.floor(Math.random() * (graveyard.offsetHeight - ghost.offsetHeight));
 
     ghost.style.left = x + 'px';
     ghost.style.top = y + 'px';
@@ -130,31 +126,25 @@ function setIntervalForGhost() {
         setRandomCoords();
         markLifeStatus.getNext();
     }
-
-    isOneTime = true;
-    isLastProgress = false;
 }
 
 setInterval(setIntervalForGhost, 3000);
 
 function markProgressOut() {
-    var i = 0;
+    let i = 0;
+    const lastElementIndex = progress.length - 1;
 
     return {
-        getNext: function () {
-            if (ghost.style.animationPlayState === 'paused' && isOneTime) { //исправить баг!!!!!!!!!!!
-                progress[i].classList.add('_progress');
-                i++;
-                isOneTime = false;
-
-                if (i === progress.length) {
-                    isGameOver = true;
-                }
+        getNext: () => {
+            progress[i].classList.add('_progress');
+            if (i === lastElementIndex) {
+                isGameOver = true;
             }
+            i++;
         },
-        reset: function () {
-            for (i = 0; i < progress.length; i++) {
-                progress[i].classList.remove('_progress');
+        reset: () => {
+            for (let icon of progress) {
+                icon.classList.remove('_progress');
             }
 
             i = 0;
@@ -163,35 +153,36 @@ function markProgressOut() {
 };
 
 function markLifeStatusOut() {
-    var i = 0;
+    let i = 0;
+    const lastElementIndex = health.length - 1;
 
     return {
-        getNext: function () {
-            if (lifeStatus.classList.contains('_blink') && !isLastProgress) {
+        getNext: () => {
+            if (lifeStatus.classList.contains('_blink')) {
                 isGameOver = true;
                 dropTheCurtain(false);
 
-            } else if (isLastProgress !== undefined && !isLastProgress) {
-                health[i].classList.add('_health');
-                i++;
-
-                if (i === health.length) {
-                    lifeStatus.classList.add('_blink');
-                }
+                return;
             }
+
+            health[i].classList.add('_health');
+
+            if (i === lastElementIndex) {
+                lifeStatus.classList.add('_blink');
+            }
+            i++;
         },
-        reset: function () {
-            for (i = 0; i < health.length; i++) {
-                health[i].classList.remove('_health');
+        reset: () => {
+            for (let icon of health) {
+                icon.classList.remove('_health');
             }
-
             i = 0;
         }
     }
 };
 
 function dropTheCurtain(isWin) {
-    if (isWin === true) {
+    if (isWin) {
         graveyard.classList.add('_win');
         finalTitle.innerText = 'You win';
 

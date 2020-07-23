@@ -97,6 +97,22 @@ body {
     margin: auto 9px;
 }
 
+.b-shooter__progress-icon._progress {
+    transform: rotate(180deg);
+    opacity: 0.2;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in;
+}
+
+.b-shooter__health-icon._health {
+    transform: scale(0.75, 0.75);
+    fill: rgba(90, 87, 98, 0.7);
+    transition: all 0.2s ease-in-out;
+}
+
+.b-shooter__health._blink {
+    animation: blink 1s infinite;
+}
+
 .b-shooter__game-over {
     position: absolute;
     width: 100%;
@@ -116,22 +132,6 @@ body {
 
 .b-shooter__game-over-sub-title {
     font-size: 20px;
-}
-
-._progress {
-    transform: rotate(180deg);
-    opacity: 0.2;
-    transition: all 0.2s ease-in-out;
-}
-
-._health {
-    transform: scale(0.75, 0.75);
-    fill: rgba(90, 87, 98, 0.7);
-    transition: all 0.2s ease-in-out;
-}
-
-._blink {
-    animation: blink 1s infinite;
 }
 
 ._win .b-shooter__game-over,
