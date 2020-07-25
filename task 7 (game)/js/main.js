@@ -59,11 +59,11 @@ document.body.addEventListener('keyup', e => {
     if (e.key === 'Enter' && isGameOver) {
         return reset();
 
-    } else if (e.code !== 'Space' || isGameOver) {
+    } else if (fire.style.visibility === 'visible' || e.code !== 'Space'  || isGameOver  ) {
         return;
     }
 
-    imgOfShooter.style.transform = 'scale(1)';
+    imgOfShooter.style.transform = '';
 
     const rectGhost = ghost.getBoundingClientRect();
     const rectShooter = shooter.getBoundingClientRect();
@@ -73,15 +73,12 @@ document.body.addEventListener('keyup', e => {
     if (aimCenterY >= rectGhost.top + 20 &&
         aimCenterY <= rectGhost.bottom - 20 &&
         aimCenterX >= rectGhost.left + 20 &&
-        aimCenterX <= rectGhost.right - 20 &&
-        fire.style.visibility !== 'visible') {
+        aimCenterX <= rectGhost.right - 20) {
 
         setAnimation();
         setTimeout(resetAnimation, delayToReset);
         markProgress.getNext();
     }
-
-    console.log(aimCenterY, aimCenterX);
 });
 
 function setAnimation() {
@@ -91,7 +88,7 @@ function setAnimation() {
 }
 
 function resetAnimation() {
-    if (isGameOver === true) {
+    if (isGameOver) {
         dropTheCurtain(true)
 
     } else {
